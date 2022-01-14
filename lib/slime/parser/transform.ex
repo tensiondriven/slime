@@ -214,6 +214,11 @@ defmodule Slime.Parser.Transform do
     %EExNode{content: to_string(content), output: true, safe?: safe == "="}
   end
 
+  def transform(:named_component_slot, ["::", name, _space, content], _index) do
+    {attributes, children, false} = content
+    %HEExNode{name: ":#{name}", attributes: attributes, children: children}
+  end
+
   def transform(:function_component, [":", name, _space, content], _index) do
     {attributes, children, false} = content
     # Match on brief function components, e.g. ".city" and explicit, e.g. "MyApp.city"

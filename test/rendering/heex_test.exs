@@ -56,4 +56,15 @@ defmodule FunctionComponentTest do
     heex = "<MyApp.module.city name={city_name}></MyApp.module.city>"
     assert precompile_heex(slime) == heex
   end
+
+  test "function components work with component slots" do
+    slime = ~s"""
+    :some_component
+      ::slot this is a component slot
+    """
+
+    heex = "<.some_component><:slot>this is a component slot</:slot></.some_component>"
+
+    assert precompile_heex(slime) == heex
+  end
 end
