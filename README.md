@@ -293,22 +293,26 @@ mix deps.compile slime --force
 
 ## HEEx Support
 
-To output HEEx instead of HTML, see [`phoenix_slime`](https://github.com/slime-lang/phoenix_slime). This will cause slime to emit "html aware" HEEx with two differences from conventional HTML:
+To output HEEx instead of HTML, see [`phoenix_slime`](https://github.com/slime-lang/phoenix_slime). This will cause slime to emit "html aware" HEEx with some differences from conventional HTML:
 
 - Attribute values will be wrapped in curley-braces (`{}`) instead of escaped EEx (`#{}`):
 
 - HTML Components will be prefixed with a dot. To render an HTML Component, prefix the component name with a colon (`:`).  This will tell slime to render these html tags with a dot-prefix (`.`).
+
+- Named component slots will be prefixed with a colon. To render these in Slime, prefix the slot name with a double colon (`::`).
 
 For example,
 
 ```slim
 :greet user=@current_user.name
   | Hello there!
+
+  ::footer Lovely day we're having, isn't it?
 ```
 would create the following output:
 
 ```
-<.greet user={@current_user.name}>Hello there!</.greet>
+<.greet user={@current_user.name}>Hello there!<:footer>Lovely day we're having, isn't it?</:footer></.greet>
 ```
 When using slime with Phoenix, the `phoenix_slime` package will call `precompile_heex/2` and pass the resulting valid HEEx to [`EEx`](https://hexdocs.pm/eex/EEx.html) with [`Phoenix.LiveView.HTMLEngine`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.HTMLEngine.html#handle_text/3) as the `engine:` option.  This will produce the final html.
 
