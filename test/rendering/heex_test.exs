@@ -52,8 +52,8 @@ defmodule FunctionComponentTest do
   end
 
   test "function components work with assigns when called with full module name" do
-    slime = ":MyApp.module.city name=city_name"
-    heex = "<MyApp.module.city name={city_name}></MyApp.module.city>"
+    slime = ":MyApp.Module.city name=city_name"
+    heex = "<MyApp.Module.city name={city_name}></MyApp.Module.city>"
     assert precompile_heex(slime) == heex
   end
 
