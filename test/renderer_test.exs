@@ -119,9 +119,9 @@ defmodule RendererTest do
       example_windows = example_unix |> String.replace("\n", "\r\n")
 
       # Confirm that the unix version doesn't contain "\r"
-      assert not String.contains?(example_unix, "\r")
+      assert not example_unix =~ "\r"
       # Confirm that the windows bersion contains "\r"
-      assert String.contains?(example_windows, "\r")
+      assert example_windows =~ "\r"
 
       # Test precompilation on unix and windows, comparing to output
       assert Slime.Renderer.precompile(example_unix) == expected_precompiled_output
